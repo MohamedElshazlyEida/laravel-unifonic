@@ -2,6 +2,8 @@
 
 namespace MohamedElshazlyEida\Unifonic;
 
+use Illuminate\Support\Arr;
+
 class App implements AppContract
 {
     /**
@@ -28,8 +30,8 @@ class App implements AppContract
     public function __construct(string $appsid, array $urls = null)
     {
         $urls = $urls ?: config('unifonic.urls');
-        $this->messagesUrl = array_get($urls, 'messages');
-        $this->accountUrl = array_get($urls, 'account');
+        $this->messagesUrl =  Arr::get($urls, 'messages');
+        $this->accountUrl =  Arr::get($urls, 'account');
         $this->appsid = $appsid;
     }
 
