@@ -4,7 +4,7 @@ Start send sms with Unifonic right away using your favorite PHP framework.
 
 ### Installation
 
-`composer require MohamedElshazlyEida/laravel-unifonic`.
+`composer require mohamedelshazlyeida/laravel-unifonic`.
 
 Add the service provider to your `config/app.php`:
 
