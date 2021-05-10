@@ -1,13 +1,11 @@
 <?php
 
-namespace Zizou86\Unifonic;
+namespace MohamedElshazlyEida\Unifonic;
 
 use Illuminate\Support\Facades\Facade;
 
-
 class Unifonic extends Facade
 {
-
     /**
      * Get the registered name of the component.
      *
@@ -17,5 +15,4 @@ class Unifonic extends Facade
     {
         return 'unifonic';
     }
-
 }

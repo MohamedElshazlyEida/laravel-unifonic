@@ -1,16 +1,13 @@
 <?php
 
-namespace Zizou86\Unifonic;
-
+namespace MohamedElshazlyEida\Unifonic;
 
 class UnifonicManager
 {
-
     /**
      * @var App
      */
     public $app;
-
 
     /**
      * UnifonicManager constructor.
@@ -19,7 +16,6 @@ class UnifonicManager
     {
         $this->with('default');
     }
-
 
     /**
      * Load the custom AppSid interface.
@@ -33,8 +29,6 @@ class UnifonicManager
         return $this;
     }
 
-
-
     /**
      * Create new app instance with given credentials.
      *
@@ -45,13 +39,12 @@ class UnifonicManager
     public function with($appskey, array $urls = null)
     {
         $urls = $urls ?: config('unifonic.urls');
-        $appsid = config('unifonic.appsid.'.$appskey);
+        $appsid = config('unifonic.appsid.' . $appskey);
 
         $this->app = new App($appsid, $urls);
 
         return $this;
     }
-
 
     /**
      * Dynamically call methods on the app.
@@ -67,5 +60,4 @@ class UnifonicManager
         }
         return call_user_func_array([$this->app, $method], $parameters);
     }
-
 }

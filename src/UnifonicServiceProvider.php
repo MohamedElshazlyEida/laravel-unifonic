@@ -1,13 +1,11 @@
 <?php
 
-namespace Zizou86\Unifonic;
+namespace MohamedElshazlyEida\Unifonic;
 
 use Illuminate\Support\ServiceProvider;
 
-
 class UnifonicServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap the application services.
      *
@@ -16,11 +14,15 @@ class UnifonicServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->publishes([
-            __DIR__ . '/../config/unifonic.php' => config_path('unifonic.php'),
-        ], 'config');
+        $this->publishes(
+            [
+                __DIR__ . '/../config/unifonic.php' => config_path(
+                    'unifonic.php'
+                ),
+            ],
+            'config'
+        );
     }
-
 
     /**
      * Register the application services.
@@ -31,8 +33,7 @@ class UnifonicServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('unifonic', function () {
-            return new UnifonicManager;
+            return new UnifonicManager();
         });
     }
-
 }

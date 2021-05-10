@@ -1,12 +1,16 @@
 {
-  "name": "zizou86/laravel-unifonic",
+  "name": "MohamedElshazlyEida/laravel-unifonic",
   "description": "Package to use Unifonic API",
-  "keywords": ["laravel", "unifonic","api"],
+  "keywords": [
+    "laravel",
+    "unifonic",
+    "api"
+  ],
   "license": "MIT",
   "authors": [
     {
-      "name": "Aziz Trabelsi",
-      "email": "aziz.trabelsi@gmail.com"
+      "name": "MohamedElshazlyEida",
+      "email": "mohamed.elshazly@faheemapp.com"
     }
   ],
   "require": {
@@ -16,9 +20,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Zizou86\\Unifonic\\": "src/"
+      "MohamedElshazlyEida\\Unifonic\\": "src/"
     }
   },
   "minimum-stability": "dev"
-
 }

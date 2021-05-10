@@ -1,11 +1,9 @@
 <?php
 
-namespace Zizou86\Unifonic;
-
+namespace MohamedElshazlyEida\Unifonic;
 
 class App implements AppContract
 {
-
     /**
      * @var string
      */
@@ -21,20 +19,19 @@ class App implements AppContract
      */
     public $appsid;
 
-
     /**
      * App constructor.
      *
      * @param string $appsid
      * @param array $urls
      */
-    public function __construct(string $appsid, array $urls = null) {
+    public function __construct(string $appsid, array $urls = null)
+    {
         $urls = $urls ?: config('unifonic.urls');
-        $this->messagesUrl  = array_get($urls, 'messages');
-        $this->accountUrl  = array_get($urls, 'account');
+        $this->messagesUrl = array_get($urls, 'messages');
+        $this->accountUrl = array_get($urls, 'account');
         $this->appsid = $appsid;
     }
-
 
     /**
      * Used to get the message status.
@@ -44,11 +41,10 @@ class App implements AppContract
      */
     public function getMessageIDStatus(int $messageId)
     {
-        return $this->messages('GetMessageIDStatus',[
-            'MessageID' => $messageId
+        return $this->messages('GetMessageIDStatus', [
+            'MessageID' => $messageId,
         ]);
     }
-
 
     /**
      * Used to send a message for only one recipient.
@@ -59,12 +55,11 @@ class App implements AppContract
      */
     public function send($recipient, $message)
     {
-        return $this->messages('Send',[
+        return $this->messages('Send', [
             'Recipient' => $recipient,
-            'Body'      => $message
+            'Body' => $message,
         ]);
     }
-
 
     /**
      * Used to check the balance of an account.
@@ -76,7 +71,6 @@ class App implements AppContract
         return $this->account('GetBalance');
     }
 
-
     /**
      * Used to to send bulk messages for multi recipiencts seperated by commas.
      *
@@ -86,13 +80,12 @@ class App implements AppContract
      */
     public function sendBulk(array $recipient, $message)
     {
-        $recipients = implode(',',$recipient);
-        return $this->messages('SendBulk',[
+        $recipients = implode(',', $recipient);
+        return $this->messages('SendBulk', [
             'Recipient' => $recipients,
-            'Body'      => $message
+            'Body' => $message,
         ]);
     }
-
 
     /**
      * Execute a message API request
@@ -104,9 +97,8 @@ class App implements AppContract
     public function messages($segment, array $parameters = [])
     {
         $baseUrl = $this->messagesUrl;
-        return $this->request($baseUrl,$segment,$parameters);
+        return $this->request($baseUrl, $segment, $parameters);
     }
-
 
     /**
      * Execute an account API request
@@ -118,9 +110,8 @@ class App implements AppContract
     public function account($segment, array $parameters = [])
     {
         $baseUrl = $this->accountUrl;
-        return $this->request($baseUrl,$segment,$parameters);
+        return $this->request($baseUrl, $segment, $parameters);
     }
-
 
     /**
      * Executes an API request (messages),
@@ -134,7 +125,7 @@ class App implements AppContract
     public function request($baseUrl, $segment, $parameters)
     {
         $parameters = array_merge(array_filter($parameters), [
-            'AppSid' => $this->appsid
+            'AppSid' => $this->appsid,
         ]);
         $post_fields = http_build_query($parameters);
         $uri = $baseUrl . $segment;
@@ -142,21 +133,20 @@ class App implements AppContract
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $uri);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ch, CURLOPT_HEADER, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
 
-        curl_setopt($ch, CURLOPT_POST, TRUE);
+        curl_setopt($ch, CURLOPT_POST, true);
 
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_fields);
 
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            "Content-Type: application/x-www-form-urlencoded"
-        ));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/x-www-form-urlencoded',
+        ]);
 
         $response = curl_exec($ch);
         curl_close($ch);
 
         return json_decode($response);
     }
-
 }
